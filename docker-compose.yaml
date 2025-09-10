@@ -2,7 +2,7 @@ services:
   postgres:
     image: postgres:latest
     container_name: event-api-container
-    restart: no
+    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root

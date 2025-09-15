@@ -4,7 +4,7 @@ import dev.caioschultz.EventClean.infra.dtos.EventDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EventMapper {
+public class EventDtoMapper {
 
     public EventDto toDto(Event event){
 
@@ -21,7 +21,7 @@ public class EventMapper {
 
     }
 
-    public Event toEntity(EventDto dto){
+    public Event toDomain(EventDto dto){
 
          return new Event(dto.id(),
                 dto.name(),

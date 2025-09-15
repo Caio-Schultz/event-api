@@ -2,7 +2,7 @@ package dev.caioschultz.EventClean.infra.presentation;
 import dev.caioschultz.EventClean.core.entities.Event;
 import dev.caioschultz.EventClean.core.usecases.create.CreateEventCase;
 import dev.caioschultz.EventClean.infra.dtos.EventDto;
-import dev.caioschultz.EventClean.infra.mapper.EventMapper;
+import dev.caioschultz.EventClean.infra.mapper.EventDtoMapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,9 +12,9 @@ import java.util.List;
 public class EventController {
 
     private final CreateEventCase createEventCase;
-    private final EventMapper eventMapper;
+    private final EventDtoMapper eventMapper;
 
-    public EventController(CreateEventCase createEventCase, EventMapper eventMapper) {
+    public EventController(CreateEventCase createEventCase, EventDtoMapper eventMapper) {
         this.createEventCase = createEventCase;
         this.eventMapper = eventMapper;
     }
@@ -22,7 +22,7 @@ public class EventController {
     @PostMapping("/create")
     public EventDto createEvent(@RequestBody EventDto request){
 
-        Event newEvent = createEventCase.execute(eventMapper.toEntity(request));
+        Event newEvent = createEventCase.execute(eventMapper.toDomain(request));
 
         return eventMapper.toDto(newEvent);
     }

@@ -1,23 +1,24 @@
 package dev.caioschultz.EventClean.infra.presentation;
 import dev.caioschultz.EventClean.core.entities.Event;
 import dev.caioschultz.EventClean.core.usecases.create.CreateEventCase;
+import dev.caioschultz.EventClean.core.usecases.findall.FindAllEventCase;
 import dev.caioschultz.EventClean.infra.dtos.EventDto;
 import dev.caioschultz.EventClean.infra.mapper.EventDtoMapper;
+import dev.caioschultz.EventClean.infra.persistence.EventEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/eventclean")
+@RequiredArgsConstructor
 public class EventController {
 
     private final CreateEventCase createEventCase;
     private final EventDtoMapper eventMapper;
+    private final FindAllEventCase findAllEventCase;
 
-    public EventController(CreateEventCase createEventCase, EventDtoMapper eventMapper) {
-        this.createEventCase = createEventCase;
-        this.eventMapper = eventMapper;
-    }
 
     @PostMapping("/create")
     public EventDto createEvent(@RequestBody EventDto request){
@@ -30,8 +31,11 @@ public class EventController {
     @GetMapping
     public List<EventDto> findAllEvents(){
 
-        return null;
+        List<Event> events = findAllEventCase.execute();
 
+        return events.stream()
+                .map(eventMapper::toDto)
+                .toList();
     }
 
 }

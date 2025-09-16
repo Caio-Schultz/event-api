@@ -1,15 +1,21 @@
 package dev.caioschultz.EventClean.core.usecases.findall;
 
 import dev.caioschultz.EventClean.core.entities.Event;
+import dev.caioschultz.EventClean.core.gateway.EventGateway;
 
 import java.util.List;
 
 public class FindAllEventCaseImpl implements FindAllEventCase{
 
+    private final EventGateway eventGateway;
+
+    public FindAllEventCaseImpl(EventGateway eventGateway) {
+        this.eventGateway = eventGateway;
+    }
 
     @Override
     public List<Event> execute() {
-        return List.of();
+        return eventGateway.findAllEvents();
     }
 
 

@@ -33,6 +33,7 @@ public class EventEntity {
     @Column(nullable = false)
     private Integer capacity;
     @Enumerated(EnumType.STRING)
+    @Column(name = "event_type")
     private EventType eventType;
 
 

@@ -4,7 +4,7 @@ import dev.caioschultz.EventClean.core.entities.Event;
 
 import java.util.List;
 
-public interface FindAllEventCase {
+public interface FindAllEventUseCase {
 
     List<Event> execute();
 

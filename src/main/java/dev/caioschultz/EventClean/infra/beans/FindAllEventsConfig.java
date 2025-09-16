@@ -1,7 +1,7 @@
 package dev.caioschultz.EventClean.infra.beans;
 
 import dev.caioschultz.EventClean.core.gateway.EventGateway;
-import dev.caioschultz.EventClean.core.usecases.findall.FindAllEventCaseImpl;
+import dev.caioschultz.EventClean.core.usecases.findall.FindAllEventUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class FindAllEventsConfig {
 
     @Bean
-    public FindAllEventCaseImpl findAllEventCase(EventGateway gateway){
-        return new FindAllEventCaseImpl(gateway);
+    public FindAllEventUseCaseImpl findAllEventCase(EventGateway gateway){
+        return new FindAllEventUseCaseImpl(gateway);
 
     }
 

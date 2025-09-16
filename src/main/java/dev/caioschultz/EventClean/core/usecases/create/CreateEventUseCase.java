@@ -2,7 +2,7 @@ package dev.caioschultz.EventClean.core.usecases.create;
 
 import dev.caioschultz.EventClean.core.entities.Event;
 
-public interface CreateEventCase {
+public interface CreateEventUseCase {
 
     Event execute(Event event);
 

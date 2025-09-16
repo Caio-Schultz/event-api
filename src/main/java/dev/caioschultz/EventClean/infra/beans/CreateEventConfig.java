@@ -1,6 +1,6 @@
 package dev.caioschultz.EventClean.infra.beans;
 
-import dev.caioschultz.EventClean.core.usecases.create.CreateEventCaseImpl;
+import dev.caioschultz.EventClean.core.usecases.create.CreateEventUseCaseImpl;
 import dev.caioschultz.EventClean.infra.gateway.EventRepositoryGateway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class CreateEventConfig {
 
     @Bean
-    public CreateEventCaseImpl createEventCase(EventRepositoryGateway gateway){
-        return new CreateEventCaseImpl(gateway);
+    public CreateEventUseCaseImpl createEventCase(EventRepositoryGateway gateway){
+        return new CreateEventUseCaseImpl(gateway);
     }
 
     // Cria-se uma classe de config para dar contexto ao Spring

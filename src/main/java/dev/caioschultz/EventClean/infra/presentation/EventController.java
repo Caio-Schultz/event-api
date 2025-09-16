@@ -1,10 +1,9 @@
 package dev.caioschultz.EventClean.infra.presentation;
 import dev.caioschultz.EventClean.core.entities.Event;
-import dev.caioschultz.EventClean.core.usecases.create.CreateEventCase;
-import dev.caioschultz.EventClean.core.usecases.findall.FindAllEventCase;
+import dev.caioschultz.EventClean.core.usecases.create.CreateEventUseCase;
+import dev.caioschultz.EventClean.core.usecases.findall.FindAllEventUseCase;
 import dev.caioschultz.EventClean.infra.dtos.EventDto;
 import dev.caioschultz.EventClean.infra.mapper.EventDtoMapper;
-import dev.caioschultz.EventClean.infra.persistence.EventEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +14,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventController {
 
-    private final CreateEventCase createEventCase;
+    private final CreateEventUseCase createEventCase;
     private final EventDtoMapper eventMapper;
-    private final FindAllEventCase findAllEventCase;
+    private final FindAllEventUseCase findAllEventCase;
 
 
     @PostMapping("/create")

@@ -3,11 +3,11 @@ package dev.caioschultz.EventClean.core.usecases.create;
 import dev.caioschultz.EventClean.core.entities.Event;
 import dev.caioschultz.EventClean.core.gateway.EventGateway;
 
-public class CreateEventCaseImpl implements CreateEventCase {
+public class CreateEventUseCaseImpl implements CreateEventUseCase {
 
     private final EventGateway eventGateway;
 
-    public CreateEventCaseImpl(EventGateway eventGateway) {
+    public CreateEventUseCaseImpl(EventGateway eventGateway) {
         this.eventGateway = eventGateway;
     }
 

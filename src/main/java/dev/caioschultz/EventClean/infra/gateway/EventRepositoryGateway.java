@@ -2,6 +2,7 @@ package dev.caioschultz.EventClean.infra.gateway;
 
 import dev.caioschultz.EventClean.core.entities.Event;
 import dev.caioschultz.EventClean.core.gateway.EventGateway;
+import dev.caioschultz.EventClean.infra.exceptions.UniqueConstraintViolationException;
 import dev.caioschultz.EventClean.infra.mapper.EventEntityMapper;
 import dev.caioschultz.EventClean.infra.persistence.EventEntity;
 import dev.caioschultz.EventClean.infra.persistence.EventRepository;
@@ -18,9 +19,14 @@ public class EventRepositoryGateway implements EventGateway {
 
     @Override
     public Event createEvent(Event event) {
-        EventEntity eventEntity = eventEntityMapper.toEntity(event);
-        EventEntity savedEvent = repository.save(eventEntity);
-        return eventEntityMapper.toDomain(savedEvent);
+        try {
+            EventEntity eventEntity = eventEntityMapper.toEntity(event);
+            EventEntity savedEvent = repository.save(eventEntity);
+            return eventEntityMapper.toDomain(savedEvent);
+        }
+        catch (Exception exception){
+            throw new UniqueConstraintViolationException("Identificador do evento já existe");
+        }
     }
 
     @Override

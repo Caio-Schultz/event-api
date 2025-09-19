@@ -20,14 +20,15 @@ public class EventRepositoryGateway implements EventGateway {
 
     @Override
     public Event createEvent(Event event) {
-        try {
-            EventEntity eventEntity = eventEntityMapper.toEntity(event);
-            EventEntity savedEvent = repository.save(eventEntity);
-            return eventEntityMapper.toDomain(savedEvent);
+
+        if(findByIdentifier(event.identifier()) != null){
+            throw new UniqueConstraintViolationException("Esse identificador de evento já existe");
         }
-        catch (Exception exception){
-            throw new UniqueConstraintViolationException("Identificador do evento já existe");
-        }
+
+        EventEntity eventEntity = eventEntityMapper.toEntity(event);
+        EventEntity savedEvent = repository.save(eventEntity);
+        return eventEntityMapper.toDomain(savedEvent);
+
     }
 
     @Override

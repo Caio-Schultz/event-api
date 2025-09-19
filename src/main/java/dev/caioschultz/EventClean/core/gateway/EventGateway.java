@@ -9,4 +9,6 @@ public interface EventGateway {
     Event createEvent(Event event);
 
     List<Event> findAllEvents();
+
+    Event findByIdentifier(String identifier);
 }

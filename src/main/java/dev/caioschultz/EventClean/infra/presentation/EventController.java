@@ -2,6 +2,7 @@ package dev.caioschultz.EventClean.infra.presentation;
 import dev.caioschultz.EventClean.core.entities.Event;
 import dev.caioschultz.EventClean.core.usecases.create.CreateEventUseCase;
 import dev.caioschultz.EventClean.core.usecases.findall.FindAllEventUseCase;
+import dev.caioschultz.EventClean.core.usecases.findbyid.FindEventByIdUseCase;
 import dev.caioschultz.EventClean.core.usecases.findbyidentifier.FindEventByIdentifierUseCase;
 import dev.caioschultz.EventClean.infra.dtos.EventDto;
 import dev.caioschultz.EventClean.infra.mapper.EventDtoMapper;
@@ -23,6 +24,7 @@ public class EventController {
     private final EventDtoMapper eventMapper;
     private final FindAllEventUseCase findAllEventCase;
     private final FindEventByIdentifierUseCase findByIdentifierCase;
+    private final FindEventByIdUseCase findEventByIdUseCase;
 
 
     // Retornando com Map o ResponseEntity é possível retornar uma mensagem + um objeto (no caso, o EventoDto criado)
@@ -50,7 +52,7 @@ public class EventController {
                 .toList());
     }
 
-    @GetMapping("/{identifier}")
+    @GetMapping("/identifier/{identifier}")
     public ResponseEntity<Map<String, Object>> findByIdentifier(@PathVariable String identifier){
         Event event = findByIdentifierCase.execute(identifier);
         Map<String, Object> response = new HashMap<>();
@@ -68,6 +70,29 @@ public class EventController {
 
         return ResponseEntity.ok(response);
 
+
+    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Map<String, Object>> findById(@PathVariable Long id){
+
+        Event event = findEventByIdUseCase.execute(id);
+        Map<String, Object> response = new HashMap<>();
+
+        if(event == null){
+            response.put("Mensagem: ", "Evento não encontrado pelo ID");
+            response.put("Sugestão: ", "Verifique se o ID do evento é válido!");
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(response);
+        }
+
+        EventDto eventFound = eventMapper.toDto(event);
+
+        response.put("Mensagem: ", "Evento encontrado  pelo ID!");
+        response.put("Dados do evento: ", eventFound);
+
+        return ResponseEntity.ok(response);
 
     }
 

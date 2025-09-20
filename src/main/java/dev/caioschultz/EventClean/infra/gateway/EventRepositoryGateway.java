@@ -47,5 +47,11 @@ public class EventRepositoryGateway implements EventGateway {
                     .orElse(null);
     }
 
-
+    @Override
+    public Event findById(Long id) {
+        Optional<EventEntity> eventEntity = repository.findById(id);
+        return eventEntity
+                .map(eventEntityMapper::toDomain)
+                .orElse(null);
+    }
 }

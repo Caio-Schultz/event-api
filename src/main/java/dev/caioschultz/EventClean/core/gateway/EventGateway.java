@@ -11,4 +11,6 @@ public interface EventGateway {
     List<Event> findAllEvents();
 
     Event findByIdentifier(String identifier);
+
+    Event findById(Long id);
 }

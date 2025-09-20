@@ -1,7 +1,7 @@
 package dev.caioschultz.EventClean.infra.beans;
 
 import dev.caioschultz.EventClean.core.gateway.EventGateway;
-import dev.caioschultz.EventClean.core.usecases.findbyidentifier.FindByIdentifierUseCaseImpl;
+import dev.caioschultz.EventClean.core.usecases.findbyidentifier.FindEventByIdentifierUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class FindByIdentifierConfig {
 
     @Bean
-    public FindByIdentifierUseCaseImpl findByIdentifierUseCase(EventGateway gateway){
-        return new FindByIdentifierUseCaseImpl(gateway);
+    public FindEventByIdentifierUseCaseImpl findByIdentifierUseCase(EventGateway gateway){
+        return new FindEventByIdentifierUseCaseImpl(gateway);
     }
 
 }

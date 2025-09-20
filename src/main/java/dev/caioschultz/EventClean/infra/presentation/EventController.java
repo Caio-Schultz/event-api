@@ -2,7 +2,7 @@ package dev.caioschultz.EventClean.infra.presentation;
 import dev.caioschultz.EventClean.core.entities.Event;
 import dev.caioschultz.EventClean.core.usecases.create.CreateEventUseCase;
 import dev.caioschultz.EventClean.core.usecases.findall.FindAllEventUseCase;
-import dev.caioschultz.EventClean.core.usecases.findbyidentifier.FindByIdentifierUseCase;
+import dev.caioschultz.EventClean.core.usecases.findbyidentifier.FindEventByIdentifierUseCase;
 import dev.caioschultz.EventClean.infra.dtos.EventDto;
 import dev.caioschultz.EventClean.infra.mapper.EventDtoMapper;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class EventController {
     private final CreateEventUseCase createEventCase;
     private final EventDtoMapper eventMapper;
     private final FindAllEventUseCase findAllEventCase;
-    private final FindByIdentifierUseCase findByIdentifierCase;
+    private final FindEventByIdentifierUseCase findByIdentifierCase;
 
 
     // Retornando com Map o ResponseEntity é possível retornar uma mensagem + um objeto (no caso, o EventoDto criado)

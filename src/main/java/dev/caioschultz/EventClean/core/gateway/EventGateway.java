@@ -13,4 +13,6 @@ public interface EventGateway {
     Event findByIdentifier(String identifier);
 
     Event findById(Long id);
+
+    void deleteById(Long id);
 }

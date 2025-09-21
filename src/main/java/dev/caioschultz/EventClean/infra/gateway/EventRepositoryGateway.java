@@ -54,4 +54,11 @@ public class EventRepositoryGateway implements EventGateway {
                 .map(eventEntityMapper::toDomain)
                 .orElse(null);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
+
+
 }

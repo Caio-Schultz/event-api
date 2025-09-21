@@ -1,6 +1,7 @@
 package dev.caioschultz.EventClean.infra.presentation;
 import dev.caioschultz.EventClean.core.entities.Event;
 import dev.caioschultz.EventClean.core.usecases.create.CreateEventUseCase;
+import dev.caioschultz.EventClean.core.usecases.delete.DeleteEventByIdUseCase;
 import dev.caioschultz.EventClean.core.usecases.findall.FindAllEventUseCase;
 import dev.caioschultz.EventClean.core.usecases.findbyid.FindEventByIdUseCase;
 import dev.caioschultz.EventClean.core.usecases.findbyidentifier.FindEventByIdentifierUseCase;
@@ -25,6 +26,7 @@ public class EventController {
     private final FindAllEventUseCase findAllEventCase;
     private final FindEventByIdentifierUseCase findByIdentifierCase;
     private final FindEventByIdUseCase findEventByIdUseCase;
+    private final DeleteEventByIdUseCase deleteEventByIdUseCase;
 
 
     // Retornando com Map o ResponseEntity é possível retornar uma mensagem + um objeto (no caso, o EventoDto criado)
@@ -93,6 +95,25 @@ public class EventController {
         response.put("Dados do evento: ", eventFound);
 
         return ResponseEntity.ok(response);
+
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> deleteById(@PathVariable Long id){
+        Map<String, Object> response = new HashMap<>();
+        Event eventFound = findEventByIdUseCase.execute(id);
+
+        if (eventFound == null){
+            response.put("Mensagem: ", "Evento não encontrado para ser deletado pelo ID!");
+            response.put("Sugestão: ", "Verifique se o ID do evento é válido ou se já não foi deletado!");
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(response);
+        }
+
+        deleteEventByIdUseCase.execute(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
 
     }
 

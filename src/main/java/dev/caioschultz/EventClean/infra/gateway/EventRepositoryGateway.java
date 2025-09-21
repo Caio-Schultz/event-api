@@ -2,6 +2,7 @@ package dev.caioschultz.EventClean.infra.gateway;
 
 import dev.caioschultz.EventClean.core.entities.Event;
 import dev.caioschultz.EventClean.core.gateway.EventGateway;
+import dev.caioschultz.EventClean.infra.exceptions.EventNotFoundException;
 import dev.caioschultz.EventClean.infra.exceptions.UniqueConstraintViolationException;
 import dev.caioschultz.EventClean.infra.mapper.EventEntityMapper;
 import dev.caioschultz.EventClean.infra.persistence.EventEntity;
@@ -57,6 +58,11 @@ public class EventRepositoryGateway implements EventGateway {
 
     @Override
     public void deleteById(Long id) {
+        Event event = findById(id);
+        if (event == null){
+            throw new EventNotFoundException("Event Not Found!");
+        }
+
         repository.deleteById(id);
     }
 

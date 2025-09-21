@@ -22,4 +22,19 @@ public class GlobalExceptionHandler {
                 .body(response);
     }
 
+    @ExceptionHandler(EventNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleEventNotFoundException(EventNotFoundException exception){
+
+        Map<String, String> response = new HashMap<>();
+
+        response.put("Error:", exception.getMessage());
+        response.put("Message", "Please, enter valid information to find your event!");
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(response);
+
+
+
+    }
+
 }

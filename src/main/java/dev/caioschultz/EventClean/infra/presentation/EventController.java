@@ -6,6 +6,7 @@ import dev.caioschultz.EventClean.core.usecases.findall.FindAllEventUseCase;
 import dev.caioschultz.EventClean.core.usecases.findbyid.FindEventByIdUseCase;
 import dev.caioschultz.EventClean.core.usecases.findbyidentifier.FindEventByIdentifierUseCase;
 import dev.caioschultz.EventClean.infra.dtos.EventDto;
+import dev.caioschultz.EventClean.infra.exceptions.EventNotFoundException;
 import dev.caioschultz.EventClean.infra.mapper.EventDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -60,11 +61,9 @@ public class EventController {
         Map<String, Object> response = new HashMap<>();
 
         if(event == null){
-            response.put("Mensagem: ", "Evento não encontrado pelo identificador!");
-            response.put("Sugestão: ", "Verifique se o identificador do evento é válido!");
-
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+            throw new EventNotFoundException("Event Not Found");
         }
+
         EventDto eventFound = eventMapper.toDto(event);
 
         response.put("Mensagem: ", "Evento encontrado pelo identificador!");
@@ -82,11 +81,7 @@ public class EventController {
         Map<String, Object> response = new HashMap<>();
 
         if(event == null){
-            response.put("Mensagem: ", "Evento não encontrado pelo ID");
-            response.put("Sugestão: ", "Verifique se o ID do evento é válido!");
-
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(response);
+            throw new EventNotFoundException("Event Not Found!");
         }
 
         EventDto eventFound = eventMapper.toDto(event);
@@ -100,21 +95,8 @@ public class EventController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> deleteById(@PathVariable Long id){
-        Map<String, Object> response = new HashMap<>();
-        Event eventFound = findEventByIdUseCase.execute(id);
-
-        if (eventFound == null){
-            response.put("Mensagem: ", "Evento não encontrado para ser deletado pelo ID!");
-            response.put("Sugestão: ", "Verifique se o ID do evento é válido ou se já não foi deletado!");
-
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(response);
-        }
-
         deleteEventByIdUseCase.execute(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-
-
     }
 
 }

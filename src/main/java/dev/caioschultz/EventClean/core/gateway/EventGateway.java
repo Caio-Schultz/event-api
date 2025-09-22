@@ -15,4 +15,7 @@ public interface EventGateway {
     Event findById(Long id);
 
     void deleteById(Long id);
+
+    String createRandomIdentifier();
+
 }

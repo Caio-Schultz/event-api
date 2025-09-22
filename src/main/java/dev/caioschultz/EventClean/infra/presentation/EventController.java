@@ -60,18 +60,12 @@ public class EventController {
         Event event = findByIdentifierCase.execute(identifier);
         Map<String, Object> response = new HashMap<>();
 
-        if(event == null){
-            throw new EventNotFoundException("Event Not Found");
-        }
-
         EventDto eventFound = eventMapper.toDto(event);
 
         response.put("Mensagem: ", "Evento encontrado pelo identificador!");
         response.put("Dados do evento: ", eventFound);
 
         return ResponseEntity.ok(response);
-
-
     }
 
     @GetMapping("/id/{id}")
@@ -79,10 +73,6 @@ public class EventController {
 
         Event event = findEventByIdUseCase.execute(id);
         Map<String, Object> response = new HashMap<>();
-
-        if(event == null){
-            throw new EventNotFoundException("Event Not Found!");
-        }
 
         EventDto eventFound = eventMapper.toDto(event);
 

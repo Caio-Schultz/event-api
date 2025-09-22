@@ -45,7 +45,7 @@ public class EventRepositoryGateway implements EventGateway {
         Optional<EventEntity> eventEntity = repository.findByIdentifier(identifier);
             return eventEntity
                     .map(eventEntityMapper::toDomain)
-                    .orElse(null);
+                    .orElseThrow(() -> new EventNotFoundException("Event Not Found!"));
     }
 
     @Override
@@ -53,7 +53,7 @@ public class EventRepositoryGateway implements EventGateway {
         Optional<EventEntity> eventEntity = repository.findById(id);
         return eventEntity
                 .map(eventEntityMapper::toDomain)
-                .orElse(null);
+                .orElseThrow(() -> new EventNotFoundException("Event Not Found!"));
     }
 
     @Override

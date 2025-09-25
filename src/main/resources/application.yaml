@@ -1,17 +1,21 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5431/event-clean
-    username: postgres
-    password: root
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
   jpa:
     hibernate:
       ddl-auto: none
     properties:
       hibernate:
-        dialect:
-          org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
         show_sql: true
 

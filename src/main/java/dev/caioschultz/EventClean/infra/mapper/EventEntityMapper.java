@@ -9,8 +9,6 @@ public class EventEntityMapper {
 
     public EventEntity toEntity(Event event){
 
-
-
         return new EventEntity(event.id(),
                               event.name(),
                               event.description(),
